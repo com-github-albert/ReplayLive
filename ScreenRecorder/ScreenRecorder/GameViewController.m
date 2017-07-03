@@ -216,7 +216,7 @@
             }
         }];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [broadcastActivityViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
