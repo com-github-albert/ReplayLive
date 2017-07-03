@@ -8,17 +8,11 @@
 
 #import "GameViewController.h"
 #import "Renderer.h"
-#import "Capture.h"
-#import "CapturePreview.h"
 
-@interface GameViewController ()
-
-@property (nonatomic, strong) Capture *capture;
-@property (nonatomic, strong) CapturePreview *capturePreview;
-@property (nonatomic, strong) AVCaptureVideoDataOutput *captureVideoDataOutput;
+@interface GameViewController () <RPBroadcastActivityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
-
+@property (nonatomic, strong) RPBroadcastController *broadcastController;
 @end
 
 @implementation GameViewController {
@@ -32,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initCamera];
     self.mtkView.backgroundColor = [UIColor clearColor];
     if (!RPScreenRecorder.sharedRecorder.isAvailable) {
         self.recordButton.hidden = YES;
@@ -48,16 +41,6 @@
                             renderDestinationProvider:self];
 
     [_renderer drawRectResized:self.mtkView.bounds.size];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self checkCaptureSetupResult];
-}
-
-- (void)dealloc {
-    [self deinitCamera];
 }
 
 // Called whenever view changes orientation or layout is changed
@@ -178,119 +161,62 @@
     }
 }
 
-#pragma mark - Camera Settings
-- (void)initCamera {
-    if (!self.capture) {
-        _captureQueue = dispatch_queue_create("com.hiscene.jt.captureSesstionQueue", DISPATCH_QUEUE_SERIAL);
-        self.capture = [[Capture alloc] initWithSessionPreset:AVCaptureSessionPreset640x480
-                                                   devicePosition:AVCaptureDevicePositionBack
-                                                     sessionQueue:_captureQueue];
-        
-        self.capturePreview = [[CapturePreview alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.height / 4 * 3, self.view.bounds.size.height)];
-        self.capturePreview.center = self.view.center;
-        self.capturePreview.session = self.capture.session;
-        self.capturePreview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self.view insertSubview:self.capturePreview atIndex:0];
-        self.capturePreview.backgroundColor = [UIColor blackColor];
-        
-        dispatch_async( _captureQueue, ^{
-            [self configCaptureVideoDataOutput];
-        });
-    }
-}
-
-- (void)configCaptureVideoDataOutput {
-    if ( self.capture.setupResult != AVCaptureSetupResultSuccess ) {
-        return;
-    }
-    
-    [self.capture.session beginConfiguration];
-    /*
-     Use the status bar orientation as the initial video orientation. Subsequent orientation changes are
-     handled by -[AVCamCameraViewController viewWillTransitionToSize:withTransitionCoordinator:].
-     */
-    UIInterfaceOrientation statusBarOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    AVCaptureVideoOrientation initialVideoOrientation = AVCaptureVideoOrientationPortrait;
-    if ( statusBarOrientation != UIInterfaceOrientationUnknown ) {
-        initialVideoOrientation = (AVCaptureVideoOrientation)statusBarOrientation;
-    }
-    self.capturePreview.videoPreviewLayer.connection.videoOrientation = initialVideoOrientation;
-    
-    self.captureVideoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
-    [self.captureVideoDataOutput setVideoSettings:@{(id)kCVPixelBufferPixelFormatTypeKey:
-                                                        [NSNumber numberWithInt:kCVPixelFormatType_32BGRA]}];
-    [self.captureVideoDataOutput setSampleBufferDelegate:nil queue:_captureQueue];
-    
-    if ([self.capture.session canAddOutput:self.captureVideoDataOutput]) {
-        [self.capture.session addOutput:self.captureVideoDataOutput];
+#pragma mark - Broadcast
+- (IBAction)broadcast:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [self openLive];
+        [sender setTitle:@"Close Live" forState:UIControlStateNormal];
     } else {
-#if DEBUG
-        NSLog( @"Could not add video device output to the session" );
-#endif
-        self.capture.setupResult = AVCaptureSetupResultSessionConfigurationFailed;
-        [self.capture.session commitConfiguration];
-        return;
+        [self closeLive];
+        [sender setTitle:@"Open Live" forState:UIControlStateNormal];
     }
-    
-    AVCaptureConnection *videoConnection = [self.captureVideoDataOutput connectionWithMediaType:AVMediaTypeVideo];
-    if ([videoConnection isVideoOrientationSupported]) {
-        videoConnection.videoOrientation = AVCaptureVideoOrientationLandscapeRight; //  SDK only support landscape
-    }
-    
-    [self.capture.session commitConfiguration];
 }
 
-- (void)checkCaptureSetupResult {
-    dispatch_async( _captureQueue, ^{
-        switch ( self.capture.setupResult ) {
-            case AVCaptureSetupResultSuccess: {
-                // Only setup observers and start the session running if setup succeeded.
-                dispatch_async( dispatch_get_main_queue(), ^{
-                    self.capture.activeVideoFrame = 30;
-                    [self.capture start];
-                });
-                break;
-            }
-            case AVCaptureSetupResultCameraNotAuthorized: {
-                dispatch_async( dispatch_get_main_queue(), ^{
-                    NSString *message = NSLocalizedString( @"The app doesn't have permission to use the camera, please change privacy settings", @"Alert message when the user has denied access to the camera" );
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"AVCam" message:message preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"OK", @"Alert OK button" ) style:UIAlertActionStyleCancel handler:nil];
-                    [alertController addAction:cancelAction];
-                    // Provide quick access to Settings.
-                    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Settings", @"Alert button to open Settings" ) style:UIAlertActionStyleDefault handler:^( UIAlertAction *action ) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-                    }];
-                    [alertController addAction:settingsAction];
-                    [self presentViewController:alertController animated:YES completion:nil];
-                });
-                break;
-            }
-            case AVCaptureSetupResultSessionConfigurationFailed: {
-                dispatch_async( dispatch_get_main_queue(), ^{
-                    NSString *message = NSLocalizedString( @"Unable to capture media", @"Alert message when something goes wrong during capture session configuration" );
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"AVCam" message:message preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"OK", @"Alert OK button" ) style:UIAlertActionStyleCancel handler:nil];
-                    [alertController addAction:cancelAction];
-                    [self presentViewController:alertController animated:YES completion:nil];
-                });
-                break;
-            }
+- (void)openLive {
+    [RPBroadcastActivityViewController loadBroadcastActivityViewControllerWithHandler:^(RPBroadcastActivityViewController * _Nullable broadcastActivityViewController, NSError * _Nullable error) {
+        __weak typeof(self) weakSelf = self;
+        if (error) {
+            [weakSelf alertWithRecordError:error];
+        } else {
+            broadcastActivityViewController.delegate = self;
+            [weakSelf presentViewController:broadcastActivityViewController animated:YES completion:nil];
         }
-    });
+    }];
 }
 
-- (void)deinitCamera {
-    dispatch_async( _captureQueue, ^{
-        if (self.capture.setupResult != AVCaptureSetupResultSuccess) {
-            [self.capture.session removeOutput:self.captureVideoDataOutput];
-            self.captureVideoDataOutput = nil;
-            self.capturePreview.session = nil;
-            self.capturePreview = nil;
-            [self.capture pause];
+- (void)closeLive {
+    [self.broadcastController finishBroadcastWithHandler:^(NSError * _Nullable error) {
+        __weak typeof(self) weakSelf = self;
+        if (error) {
+            [weakSelf alertWithRecordError:error];
         }
-    });
+        RPScreenRecorder.sharedRecorder.cameraEnabled = NO;
+        RPScreenRecorder.sharedRecorder.microphoneEnabled = NO;
+        [RPScreenRecorder.sharedRecorder.cameraPreviewView removeFromSuperview];
+    }];
+}
+
+#pragma mark - RPBroadcastActivityViewControllerDelegate
+- (void)broadcastActivityViewController:(RPBroadcastActivityViewController *)broadcastActivityViewController didFinishWithBroadcastController:(RPBroadcastController *)broadcastController error:(NSError *)error {
+    if (error) {
+        [self alertWithRecordError:error];
+    } else {
+        RPScreenRecorder.sharedRecorder.cameraEnabled = YES;
+        RPScreenRecorder.sharedRecorder.microphoneEnabled = YES;
+        
+        self.broadcastController = broadcastController;
+        [broadcastController startBroadcastWithHandler:^(NSError * _Nullable error) {
+            __weak typeof(self) weakSelf = self;
+            if (error) {
+                [weakSelf alertWithRecordError:error];
+            } else {
+                RPScreenRecorder.sharedRecorder.cameraPreviewView.frame = CGRectMake(20, self.view.bounds.size.height - 150 - 20, 150, 150);
+                [weakSelf.view addSubview:RPScreenRecorder.sharedRecorder.cameraPreviewView];
+            }
+        }];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
-

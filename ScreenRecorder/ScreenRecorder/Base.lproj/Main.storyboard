@@ -31,12 +31,21 @@
                                     <action selector="record:" destination="BV1-FR-VrT" eventType="touchUpInside" id="1nN-su-y5b"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9a-X1-Ctu">
+                                <rect key="frame" x="329" y="20" width="30" height="30"/>
+                                <state key="normal" title="Live"/>
+                                <connections>
+                                    <action selector="broadcast:" destination="BV1-FR-VrT" eventType="touchUpInside" id="NiC-P9-Df7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2CN-Ro-d9B" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" id="4d0-1E-1JK"/>
                             <constraint firstAttribute="trailing" secondItem="TbA-g6-9UY" secondAttribute="trailing" id="KSv-Mt-FeT"/>
+                            <constraint firstItem="h9a-X1-Ctu" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="RYL-le-kpz"/>
                             <constraint firstItem="TbA-g6-9UY" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="Uhi-ha-qVu"/>
+                            <constraint firstItem="h9a-X1-Ctu" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" id="ZvV-yQ-3UF"/>
                             <constraint firstItem="TbA-g6-9UY" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" id="Zyd-Aq-xiw"/>
                             <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="TbA-g6-9UY" secondAttribute="bottom" id="o7q-g8-ByO"/>
                             <constraint firstItem="2CN-Ro-d9B" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" id="sIe-Kl-jPg"/>

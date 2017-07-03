@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6BC2E06C1F0A4B2A003D3699 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2E06B1F0A4B2A003D3699 /* main.m */; };
+		6BC2E06F1F0A4B2A003D3699 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2E06E1F0A4B2A003D3699 /* AppDelegate.m */; };
+		6BC2E0721F0A4B2A003D3699 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2E0711F0A4B2A003D3699 /* ViewController.m */; };
+		6BC2E0751F0A4B2A003D3699 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BC2E0731F0A4B2A003D3699 /* Main.storyboard */; };
+		6BC2E0771F0A4B2A003D3699 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BC2E0761F0A4B2A003D3699 /* Assets.xcassets */; };
+		6BC2E07A1F0A4B2A003D3699 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BC2E0781F0A4B2A003D3699 /* LaunchScreen.storyboard */; };
+		6BC2E0881F0A4B6B003D3699 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC2E0871F0A4B6B003D3699 /* ReplayKit.framework */; };
+		6BC2E08C1F0A4B6B003D3699 /* MovieClipHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2E08B1F0A4B6B003D3699 /* MovieClipHandler.m */; };
+		6BC2E08F1F0A4B6B003D3699 /* SampleHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2E08E1F0A4B6B003D3699 /* SampleHandler.m */; };
+		6BC2E0961F0A4B6B003D3699 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC2E0871F0A4B6B003D3699 /* ReplayKit.framework */; };
+		6BC2E0981F0A4B6B003D3699 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC2E0971F0A4B6B003D3699 /* UIKit.framework */; };
+		6BC2E09C1F0A4B6B003D3699 /* BroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2E09B1F0A4B6B003D3699 /* BroadcastViewController.m */; };
+		6BC2E09F1F0A4B6B003D3699 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BC2E09D1F0A4B6B003D3699 /* MainInterface.storyboard */; };
+		6BC2E0A31F0A4B6B003D3699 /* ReLiveUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6BC2E0951F0A4B6B003D3699 /* ReLiveUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6BC2E0A61F0A4B6B003D3699 /* ReLive.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6BC2E0851F0A4B6B003D3699 /* ReLive.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6BC2E0A11F0A4B6B003D3699 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BC2E05F1F0A4B2A003D3699 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BC2E0941F0A4B6B003D3699;
+			remoteInfo = ReLiveUI;
+		};
+		6BC2E0A41F0A4B6B003D3699 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BC2E05F1F0A4B2A003D3699 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BC2E0841F0A4B6B003D3699;
+			remoteInfo = ReLive;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6BC2E0AD1F0A4B6B003D3699 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6BC2E0A31F0A4B6B003D3699 /* ReLiveUI.appex in Embed App Extensions */,
+				6BC2E0A61F0A4B6B003D3699 /* ReLive.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6BC2E0671F0A4B2A003D3699 /* Broadcast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Broadcast.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BC2E06B1F0A4B2A003D3699 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6BC2E06D1F0A4B2A003D3699 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6BC2E06E1F0A4B2A003D3699 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6BC2E0701F0A4B2A003D3699 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6BC2E0711F0A4B2A003D3699 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6BC2E0741F0A4B2A003D3699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6BC2E0761F0A4B2A003D3699 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6BC2E0791F0A4B2A003D3699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6BC2E07B1F0A4B2A003D3699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BC2E0851F0A4B6B003D3699 /* ReLive.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReLive.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BC2E0871F0A4B6B003D3699 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		6BC2E08A1F0A4B6B003D3699 /* MovieClipHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieClipHandler.h; sourceTree = "<group>"; };
+		6BC2E08B1F0A4B6B003D3699 /* MovieClipHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieClipHandler.m; sourceTree = "<group>"; };
+		6BC2E08D1F0A4B6B003D3699 /* SampleHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleHandler.h; sourceTree = "<group>"; };
+		6BC2E08E1F0A4B6B003D3699 /* SampleHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleHandler.m; sourceTree = "<group>"; };
+		6BC2E0901F0A4B6B003D3699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BC2E0951F0A4B6B003D3699 /* ReLiveUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReLiveUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BC2E0971F0A4B6B003D3699 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6BC2E09A1F0A4B6B003D3699 /* BroadcastViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastViewController.h; sourceTree = "<group>"; };
+		6BC2E09B1F0A4B6B003D3699 /* BroadcastViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BroadcastViewController.m; sourceTree = "<group>"; };
+		6BC2E09E1F0A4B6B003D3699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		6BC2E0A01F0A4B6B003D3699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6BC2E0641F0A4B2A003D3699 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BC2E0821F0A4B6B003D3699 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E0881F0A4B6B003D3699 /* ReplayKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BC2E0921F0A4B6B003D3699 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E0961F0A4B6B003D3699 /* ReplayKit.framework in Frameworks */,
+				6BC2E0981F0A4B6B003D3699 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6BC2E05E1F0A4B2A003D3699 = {
+			isa = PBXGroup;
+			children = (
+				6BC2E0691F0A4B2A003D3699 /* Broadcast */,
+				6BC2E0891F0A4B6B003D3699 /* ReLive */,
+				6BC2E0991F0A4B6B003D3699 /* ReLiveUI */,
+				6BC2E0861F0A4B6B003D3699 /* Frameworks */,
+				6BC2E0681F0A4B2A003D3699 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6BC2E0681F0A4B2A003D3699 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6BC2E0671F0A4B2A003D3699 /* Broadcast.app */,
+				6BC2E0851F0A4B6B003D3699 /* ReLive.appex */,
+				6BC2E0951F0A4B6B003D3699 /* ReLiveUI.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6BC2E0691F0A4B2A003D3699 /* Broadcast */ = {
+			isa = PBXGroup;
+			children = (
+				6BC2E06D1F0A4B2A003D3699 /* AppDelegate.h */,
+				6BC2E06E1F0A4B2A003D3699 /* AppDelegate.m */,
+				6BC2E0701F0A4B2A003D3699 /* ViewController.h */,
+				6BC2E0711F0A4B2A003D3699 /* ViewController.m */,
+				6BC2E0731F0A4B2A003D3699 /* Main.storyboard */,
+				6BC2E0761F0A4B2A003D3699 /* Assets.xcassets */,
+				6BC2E0781F0A4B2A003D3699 /* LaunchScreen.storyboard */,
+				6BC2E07B1F0A4B2A003D3699 /* Info.plist */,
+				6BC2E06A1F0A4B2A003D3699 /* Supporting Files */,
+			);
+			path = Broadcast;
+			sourceTree = "<group>";
+		};
+		6BC2E06A1F0A4B2A003D3699 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6BC2E06B1F0A4B2A003D3699 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6BC2E0861F0A4B6B003D3699 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6BC2E0871F0A4B6B003D3699 /* ReplayKit.framework */,
+				6BC2E0971F0A4B6B003D3699 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6BC2E0891F0A4B6B003D3699 /* ReLive */ = {
+			isa = PBXGroup;
+			children = (
+				6BC2E08A1F0A4B6B003D3699 /* MovieClipHandler.h */,
+				6BC2E08B1F0A4B6B003D3699 /* MovieClipHandler.m */,
+				6BC2E08D1F0A4B6B003D3699 /* SampleHandler.h */,
+				6BC2E08E1F0A4B6B003D3699 /* SampleHandler.m */,
+				6BC2E0901F0A4B6B003D3699 /* Info.plist */,
+			);
+			path = ReLive;
+			sourceTree = "<group>";
+		};
+		6BC2E0991F0A4B6B003D3699 /* ReLiveUI */ = {
+			isa = PBXGroup;
+			children = (
+				6BC2E09A1F0A4B6B003D3699 /* BroadcastViewController.h */,
+				6BC2E09B1F0A4B6B003D3699 /* BroadcastViewController.m */,
+				6BC2E09D1F0A4B6B003D3699 /* MainInterface.storyboard */,
+				6BC2E0A01F0A4B6B003D3699 /* Info.plist */,
+			);
+			path = ReLiveUI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6BC2E0661F0A4B2A003D3699 /* Broadcast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6BC2E07E1F0A4B2A003D3699 /* Build configuration list for PBXNativeTarget "Broadcast" */;
+			buildPhases = (
+				6BC2E0631F0A4B2A003D3699 /* Sources */,
+				6BC2E0641F0A4B2A003D3699 /* Frameworks */,
+				6BC2E0651F0A4B2A003D3699 /* Resources */,
+				6BC2E0AD1F0A4B6B003D3699 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6BC2E0A21F0A4B6B003D3699 /* PBXTargetDependency */,
+				6BC2E0A51F0A4B6B003D3699 /* PBXTargetDependency */,
+			);
+			name = Broadcast;
+			productName = Broadcast;
+			productReference = 6BC2E0671F0A4B2A003D3699 /* Broadcast.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6BC2E0841F0A4B6B003D3699 /* ReLive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6BC2E0AA1F0A4B6B003D3699 /* Build configuration list for PBXNativeTarget "ReLive" */;
+			buildPhases = (
+				6BC2E0811F0A4B6B003D3699 /* Sources */,
+				6BC2E0821F0A4B6B003D3699 /* Frameworks */,
+				6BC2E0831F0A4B6B003D3699 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReLive;
+			productName = ReLive;
+			productReference = 6BC2E0851F0A4B6B003D3699 /* ReLive.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		6BC2E0941F0A4B6B003D3699 /* ReLiveUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6BC2E0A71F0A4B6B003D3699 /* Build configuration list for PBXNativeTarget "ReLiveUI" */;
+			buildPhases = (
+				6BC2E0911F0A4B6B003D3699 /* Sources */,
+				6BC2E0921F0A4B6B003D3699 /* Frameworks */,
+				6BC2E0931F0A4B6B003D3699 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReLiveUI;
+			productName = ReLiveUI;
+			productReference = 6BC2E0951F0A4B6B003D3699 /* ReLiveUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6BC2E05F1F0A4B2A003D3699 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "JT Ma";
+				TargetAttributes = {
+					6BC2E0661F0A4B2A003D3699 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C94329WK33;
+						ProvisioningStyle = Automatic;
+					};
+					6BC2E0841F0A4B6B003D3699 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C94329WK33;
+						ProvisioningStyle = Automatic;
+					};
+					6BC2E0941F0A4B6B003D3699 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = C94329WK33;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6BC2E0621F0A4B2A003D3699 /* Build configuration list for PBXProject "Broadcast" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6BC2E05E1F0A4B2A003D3699;
+			productRefGroup = 6BC2E0681F0A4B2A003D3699 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6BC2E0661F0A4B2A003D3699 /* Broadcast */,
+				6BC2E0841F0A4B6B003D3699 /* ReLive */,
+				6BC2E0941F0A4B6B003D3699 /* ReLiveUI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6BC2E0651F0A4B2A003D3699 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E07A1F0A4B2A003D3699 /* LaunchScreen.storyboard in Resources */,
+				6BC2E0771F0A4B2A003D3699 /* Assets.xcassets in Resources */,
+				6BC2E0751F0A4B2A003D3699 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BC2E0831F0A4B6B003D3699 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BC2E0931F0A4B6B003D3699 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E09F1F0A4B6B003D3699 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6BC2E0631F0A4B2A003D3699 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E0721F0A4B2A003D3699 /* ViewController.m in Sources */,
+				6BC2E06F1F0A4B2A003D3699 /* AppDelegate.m in Sources */,
+				6BC2E06C1F0A4B2A003D3699 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BC2E0811F0A4B6B003D3699 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E08F1F0A4B6B003D3699 /* SampleHandler.m in Sources */,
+				6BC2E08C1F0A4B6B003D3699 /* MovieClipHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BC2E0911F0A4B6B003D3699 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC2E09C1F0A4B6B003D3699 /* BroadcastViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6BC2E0A21F0A4B6B003D3699 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6BC2E0941F0A4B6B003D3699 /* ReLiveUI */;
+			targetProxy = 6BC2E0A11F0A4B6B003D3699 /* PBXContainerItemProxy */;
+		};
+		6BC2E0A51F0A4B6B003D3699 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6BC2E0841F0A4B6B003D3699 /* ReLive */;
+			targetProxy = 6BC2E0A41F0A4B6B003D3699 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6BC2E0731F0A4B2A003D3699 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6BC2E0741F0A4B2A003D3699 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6BC2E0781F0A4B2A003D3699 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6BC2E0791F0A4B2A003D3699 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6BC2E09D1F0A4B6B003D3699 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6BC2E09E1F0A4B6B003D3699 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6BC2E07C1F0A4B2A003D3699 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6BC2E07D1F0A4B2A003D3699 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6BC2E07F1F0A4B2A003D3699 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C94329WK33;
+				INFOPLIST_FILE = Broadcast/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiscene.jt.Broadcast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6BC2E0801F0A4B2A003D3699 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C94329WK33;
+				INFOPLIST_FILE = Broadcast/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiscene.jt.Broadcast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6BC2E0A81F0A4B6B003D3699 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C94329WK33;
+				INFOPLIST_FILE = ReLiveUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiscene.jt.Broadcast.ReLiveUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6BC2E0A91F0A4B6B003D3699 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C94329WK33;
+				INFOPLIST_FILE = ReLiveUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiscene.jt.Broadcast.ReLiveUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		6BC2E0AB1F0A4B6B003D3699 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C94329WK33;
+				INFOPLIST_FILE = ReLive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiscene.jt.Broadcast.ReLive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6BC2E0AC1F0A4B6B003D3699 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = C94329WK33;
+				INFOPLIST_FILE = ReLive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiscene.jt.Broadcast.ReLive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6BC2E0621F0A4B2A003D3699 /* Build configuration list for PBXProject "Broadcast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BC2E07C1F0A4B2A003D3699 /* Debug */,
+				6BC2E07D1F0A4B2A003D3699 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6BC2E07E1F0A4B2A003D3699 /* Build configuration list for PBXNativeTarget "Broadcast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BC2E07F1F0A4B2A003D3699 /* Debug */,
+				6BC2E0801F0A4B2A003D3699 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6BC2E0A71F0A4B6B003D3699 /* Build configuration list for PBXNativeTarget "ReLiveUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BC2E0A81F0A4B6B003D3699 /* Debug */,
+				6BC2E0A91F0A4B6B003D3699 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6BC2E0AA1F0A4B6B003D3699 /* Build configuration list for PBXNativeTarget "ReLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BC2E0AB1F0A4B6B003D3699 /* Debug */,
+				6BC2E0AC1F0A4B6B003D3699 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6BC2E05F1F0A4B2A003D3699 /* Project object */;
+}
