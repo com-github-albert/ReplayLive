@@ -12,6 +12,7 @@
 @interface GameViewController () <RPBroadcastActivityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *liveButton;
 @property (nonatomic, strong) RPBroadcastController *broadcastController;
 @end
 
@@ -28,7 +29,10 @@
     
     self.mtkView.backgroundColor = [UIColor clearColor];
     if (!RPScreenRecorder.sharedRecorder.isAvailable) {
-        self.recordButton.hidden = YES;
+        [self.recordButton removeFromSuperview];
+    }
+    if (![self broadcastIsAvailable]) {
+        [self.liveButton removeFromSuperview];
     }
     
     // Set the view to use the default device
@@ -41,6 +45,18 @@
                             renderDestinationProvider:self];
 
     [_renderer drawRectResized:self.mtkView.bounds.size];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self addActiveNotification];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self removeActiveNotification];
 }
 
 // Called whenever view changes orientation or layout is changed
@@ -89,6 +105,38 @@
     return self.mtkView.currentDrawable;
 }
 
+#pragma mark - ActiveNotification
+- (void)addActiveNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willResignActive)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+}
+
+- (void)removeActiveNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillResignActiveNotification
+                                                  object:nil];
+}
+
+- (void)didBecomeActive {
+
+}
+
+- (void)willResignActive {
+    if (RPScreenRecorder.sharedRecorder.isRecording) {
+        [self stopRecordingWithDiscarded:YES];
+        [self record:self.recordButton];
+    }
+}
+
 #pragma mark - ReplayKit
 - (IBAction)record:(UIButton *)sender {
     sender.selected = !sender.selected;
@@ -96,8 +144,8 @@
          [self startRecording];
         [sender setTitle:@"Stop Record" forState:UIControlStateNormal];
     } else {
-        [self stopRecording];
-        [sender setTitle:@"Start Record" forState:UIControlStateNormal];
+        [self stopRecordingWithDiscarded:NO];
+        [sender setTitle:@"Record" forState:UIControlStateNormal];
     }
 }
 
@@ -108,27 +156,35 @@
         if (!error) {
 
         } else {
-            [self alertWithRecordError:error];
+            NSString *title = @"Start Record";
+            [self alertWithTitle:title WithRecordError:error];
         }
     }];
 }
 
-- (void)stopRecording {
+- (void)stopRecordingWithDiscarded:(BOOL)isDiscard {
     RPScreenRecorder *recorder = [RPScreenRecorder sharedRecorder];
     [recorder stopRecordingWithHandler:^(RPPreviewViewController * _Nullable previewViewController, NSError * _Nullable error) {
         if (!error) {
             if (previewViewController) {
-                previewViewController.previewControllerDelegate = self;
-                [self presentViewController:previewViewController animated:YES completion:nil];
+                if (isDiscard) {
+                    [recorder discardRecordingWithHandler:^{
+                        
+                    }];
+                } else {
+                    previewViewController.previewControllerDelegate = self;
+                    [self presentViewController:previewViewController animated:YES completion:nil];
+                }
             }
         } else {
-            [self alertWithRecordError:error];
+            NSString *title = @"Stop Record";
+            [self alertWithTitle:title WithRecordError:error];
         }
     }];
 }
 
-- (void)alertWithRecordError:(NSError *)error {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warining"
+- (void)alertWithTitle:(NSString *)title WithRecordError:(NSError *)error {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:error.localizedDescription
                                                             preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
@@ -140,6 +196,7 @@
 
 #pragma mark - RPPreviewViewControllerDelegate
 - (void)previewControllerDidFinish:(RPPreviewViewController *)previewController {
+    previewController.previewControllerDelegate = nil;
     [previewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -154,7 +211,8 @@
 
 - (void)screenRecorder:(RPScreenRecorder *)screenRecorder didStopRecordingWithError:(NSError *)error previewViewController:(RPPreviewViewController *)previewViewController {
     if (error) {
-        [self alertWithRecordError:error];
+        NSString *title = @"Record Error";
+        [self alertWithTitle:title WithRecordError:error];
         if (previewViewController) {
             [previewViewController dismissViewControllerAnimated:YES completion:nil];
         }
@@ -162,6 +220,10 @@
 }
 
 #pragma mark - Broadcast
+- (BOOL)broadcastIsAvailable {
+    return UIDevice.currentDevice.systemVersion.doubleValue >= 10.0;
+}
+
 - (IBAction)broadcast:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
@@ -169,7 +231,7 @@
         [sender setTitle:@"Close Live" forState:UIControlStateNormal];
     } else {
         [self closeLive];
-        [sender setTitle:@"Open Live" forState:UIControlStateNormal];
+        [sender setTitle:@"Live" forState:UIControlStateNormal];
     }
 }
 
@@ -177,7 +239,8 @@
     [RPBroadcastActivityViewController loadBroadcastActivityViewControllerWithHandler:^(RPBroadcastActivityViewController * _Nullable broadcastActivityViewController, NSError * _Nullable error) {
         __weak typeof(self) weakSelf = self;
         if (error) {
-            [weakSelf alertWithRecordError:error];
+            NSString *title = @"Open Live";
+            [weakSelf alertWithTitle:title WithRecordError:error];
         } else {
             broadcastActivityViewController.delegate = self;
             [weakSelf presentViewController:broadcastActivityViewController animated:YES completion:nil];
@@ -189,7 +252,8 @@
     [self.broadcastController finishBroadcastWithHandler:^(NSError * _Nullable error) {
         __weak typeof(self) weakSelf = self;
         if (error) {
-            [weakSelf alertWithRecordError:error];
+            NSString *title = @"Close Live";
+            [weakSelf alertWithTitle:title WithRecordError:error];
         }
         RPScreenRecorder.sharedRecorder.cameraEnabled = NO;
         RPScreenRecorder.sharedRecorder.microphoneEnabled = NO;
@@ -200,7 +264,8 @@
 #pragma mark - RPBroadcastActivityViewControllerDelegate
 - (void)broadcastActivityViewController:(RPBroadcastActivityViewController *)broadcastActivityViewController didFinishWithBroadcastController:(RPBroadcastController *)broadcastController error:(NSError *)error {
     if (error) {
-        [self alertWithRecordError:error];
+        NSString *title = @"Live Error";
+        [self alertWithTitle:title WithRecordError:error];
     } else {
         RPScreenRecorder.sharedRecorder.cameraEnabled = YES;
         RPScreenRecorder.sharedRecorder.microphoneEnabled = YES;
@@ -209,7 +274,8 @@
         [broadcastController startBroadcastWithHandler:^(NSError * _Nullable error) {
             __weak typeof(self) weakSelf = self;
             if (error) {
-                [weakSelf alertWithRecordError:error];
+                NSString *title = @"Start Broad";
+                [weakSelf alertWithTitle:title WithRecordError:error];
             } else {
                 RPScreenRecorder.sharedRecorder.cameraPreviewView.frame = CGRectMake(20, self.view.bounds.size.height - 150 - 20, 150, 150);
                 [weakSelf.view addSubview:RPScreenRecorder.sharedRecorder.cameraPreviewView];

@@ -52,6 +52,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="liveButton" destination="h9a-X1-Ctu" id="bM1-LF-CAm"/>
                         <outlet property="mtkView" destination="TbA-g6-9UY" id="lRq-LY-oOa"/>
                         <outlet property="recordButton" destination="2CN-Ro-d9B" id="IXH-Lh-13B"/>
                     </connections>
