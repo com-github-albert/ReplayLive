@@ -184,14 +184,16 @@
 }
 
 - (void)alertWithTitle:(NSString *)title WithRecordError:(NSError *)error {
+#if DEBUG
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
-                                                                   message:error.localizedDescription
+                                                                   message:(error != nil) ? error.localizedDescription : @"Test"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
                                                      style:UIAlertActionStyleCancel
                                                    handler:nil];
     [alert addAction:action];
     [self presentViewController:alert animated:YES completion:nil];
+#endif
 }
 
 #pragma mark - RPPreviewViewControllerDelegate
