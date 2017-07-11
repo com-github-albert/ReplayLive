@@ -14,6 +14,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *liveButton;
 @property (nonatomic, strong) RPBroadcastController *broadcastController;
+
+@property (nonatomic, strong) UIWindow *recordWindow;
+@property (nonatomic, strong) UIButton *recordBtn;
+
 @end
 
 @implementation GameViewController {
@@ -27,13 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupRecordUI];
     self.mtkView.backgroundColor = [UIColor clearColor];
-    if (!RPScreenRecorder.sharedRecorder.isAvailable) {
-        [self.recordButton removeFromSuperview];
-    }
-    if (![self broadcastIsAvailable]) {
-        [self.liveButton removeFromSuperview];
-    }
     
     // Set the view to use the default device
     _device = MTLCreateSystemDefaultDevice();
@@ -45,6 +44,32 @@
                             renderDestinationProvider:self];
 
     [_renderer drawRectResized:self.mtkView.bounds.size];
+}
+
+- (void)setupRecordUI {
+    if (![self broadcastIsAvailable]) {
+        [self.liveButton removeFromSuperview];
+    }
+    if (!RPScreenRecorder.sharedRecorder.isAvailable) {
+        [self.recordButton removeFromSuperview];
+        return;
+    }
+    self.recordButton.hidden = YES;
+    
+    self.recordBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    [self.recordBtn addTarget:self action:@selector(record:) forControlEvents:UIControlEventTouchUpInside];
+    [self.recordBtn setTitle:@"Record" forState:UIControlStateNormal];
+    [self.recordBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    self.recordBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.recordBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    
+    self.recordWindow = [[UIWindow alloc] initWithFrame:CGRectMake(10, 20, 100, 30)];
+    self.recordWindow.backgroundColor = [UIColor clearColor];
+    self.recordWindow.rootViewController = [UIViewController new];
+    self.recordWindow.windowLevel = UIWindowLevelNormal;
+    [self.recordWindow makeKeyAndVisible];
+    
+    [self.recordWindow addSubview:self.recordBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -174,6 +199,7 @@
                 } else {
                     previewViewController.previewControllerDelegate = self;
                     [self presentViewController:previewViewController animated:YES completion:nil];
+                    self.recordBtn.hidden = YES;
                 }
             }
         } else {
@@ -200,6 +226,7 @@
 - (void)previewControllerDidFinish:(RPPreviewViewController *)previewController {
     previewController.previewControllerDelegate = nil;
     [previewController dismissViewControllerAnimated:YES completion:nil];
+    self.recordBtn.hidden = NO;
 }
 
 - (void)previewController:(RPPreviewViewController *)previewController didFinishWithActivityTypes:(NSSet<NSString *> *)activityTypes {
